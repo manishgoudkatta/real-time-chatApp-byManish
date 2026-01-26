@@ -4,7 +4,7 @@ export const axiosInstance = axios.create({
   baseURL:
     import.meta.env.MODE === "development"
       ? "http://localhost:3000/api"
-      : " https://real-time-chatapp-bymanish-2.onrender.com",
+      : import.meta.env.VITE_BASE_URL,
   withCredentials: true,
 });
 
