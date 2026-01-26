@@ -17,21 +17,21 @@ app.use(express.json({ limit: "5mb" })); // req.body
 // app.use(cors({ origin: ENV.CLIENT_URL, credentials: true }));
 // import cors from "cors";
 
-const allowedOrigins = [
-  "http://localhost:5173", // local dev
-  process.env.CLIENT_URL, // production frontend
-];
-
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (!origin) return callback(null, true); // Postman
-      if (allowedOrigins.includes(origin)) return callback(null, true);
-      return callback(new Error("CORS blocked: " + origin));
-    },
+    origin: [
+      "http://localhost:5173",
+      "https://real-time-chat-app-by-manish-p2z8.vercel.app",
+    ],
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   }),
 );
+
+// Explicitly handle preflight
+app.options("*", cors());
+
 
 
 app.use(cookieParser());
